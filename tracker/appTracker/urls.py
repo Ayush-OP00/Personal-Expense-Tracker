@@ -1,5 +1,5 @@
 from django.urls import path
-from appTracker.views import registration, login_view, manage_expenses, edit_expense, delete_expense, data_visualization
+from appTracker.views import registration, login_view, manage_expenses, edit_expense, delete_expense, data_visualization, logout_view
 
 urlpatterns = [
     path('', registration, name='reg'),
@@ -12,4 +12,6 @@ urlpatterns = [
     path('delete/<int:id>/', delete_expense, name='delete_expense'),
 
     path('dashboard/', data_visualization, name='dashboard'),
+
+    path('logout/', logout_view, name='logout'),
 ]

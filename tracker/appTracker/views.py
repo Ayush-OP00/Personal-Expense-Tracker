@@ -35,12 +35,16 @@ def registration(request):
 def manage_expenses(request):
 
     if request.method == "POST":
-        title=request.POST.get('title')
-        amount=request.POST.get('amount')
-        category=request.POST.get('category')
-        date=request.POST.get('date')
+        if 'income_submit' in request.POST: 
+            amount = request.POST.get('income')
+            Income.objects.create(amount=amount)
+        else:
+            title=request.POST.get('title')
+            amount=request.POST.get('amount')
+            category=request.POST.get('category')
+            date=request.POST.get('date')
 
-        Expense.objects.create(title=title, amount=amount, category=category, date=date)
+            Expense.objects.create(title=title, amount=amount, category=category, date=date)
         return redirect('manage')
     expenses = Expense.objects.all()
     return render(request, 'manage.html', {'expenses':expenses})
@@ -96,7 +100,7 @@ def data_visualization(request):
     # TOTAL CALCULATIONS
     total_expense = expenses.aggregate(total=Sum('amount'))['total'] or 0
 
-    total_income = 0
+    total_income = Income.objects.aggregate(total=Sum('amount'))['total'] or 0
 
     balance = total_income - total_expense
 
@@ -108,4 +112,9 @@ def data_visualization(request):
         'balance': balance,
     }
     return render(request,'dataVisualization.html', context)
+
+# LOGOUT FUNCTION
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 

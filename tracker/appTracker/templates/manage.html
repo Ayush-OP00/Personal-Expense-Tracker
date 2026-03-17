@@ -6,8 +6,23 @@
     <title>Management</title>
 </head>
 <body>
-    <h2>Expense management</h2>
 
+    <h1>Expense management</h1>
+
+    <!-- enter the income -->
+    <h2>Set your Total Income</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <label for="">Enter total Income:</label>
+        <input type="number" name="income" required>
+
+        <button type="submit" name="income_submit">Save Income</button>
+    </form><br>
+    <hr>
+
+    <!-- Expense management -->
+    
     <form action="" method="post">
         <h3>Add EXPENSES</h3>
         {% csrf_token %}
