@@ -15,7 +15,7 @@ def login_view(request):
         print (user, username, password)
         if user is not None:
             login(request, user)
-            return  redirect('home')
+            return  redirect('manage')
     return render(request, 'login.html')
 def registration(request):
     if request.method == "POST":
@@ -53,7 +53,7 @@ def edit_expense(request, id):
         expense.category = request.POST.get('category')
         expense.date = request.POST.get('date')
 
-        expense.save
+        expense.save()
 
         return redirect('manage')
     return render(request,'edit_expense.html', {'expense' : expense})

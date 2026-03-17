@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Expense Dashboard</h1>
+
+
+    <h3>Filter Expense</h3>
+    <form action="" method="get">
+        <select name="category" id="">
+            <option value="">All Categories</option>
+            <option value="food">Food</option>
+            <option value="transport">Transport</option>
+            <option value="shopping">Shopping</option>
+            <option value="other">Other</option>
+        </select>
+        <input type="date" value="start_date">
+        <input type="date" value="end_date">
+        <button type="submit">Apply</button>
+    </form>
+
+    <h2>All Expenses</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{expense.id}}</td>
+            <td>{{expense.title}}</td>
+            <td>{{expense.amount}}</td>
+            <td>{{expense.category}}</td>
+            <td>{{expense.date}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No Expenses Found !! </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Monthly summary -->
+     <h2>Monthly summary</h2>
+     <table>
+        <tr>
+            <th>Month</th>
+            <th>Total Expense</th>
+        </tr>
+        {% for item in monthly_data %}
+        <tr>
+            <td>{{item.month}}</td>
+            <td>{{item.total}}</td>
+        </tr>
+        {{% empty %}}
+        <tr>
+            <td colspan="2">No Data Available</td>
+        </tr>
+        {% endfor %}
+     </table>
+
+     <!-- TOTAL SUMMARY -->
+      <h3>Total Income</h3>
+      <p>Rs {{total_income}}</p>
+
+      <h3>Total Expense</h3>
+      <p>Rs {{total_expense}}</p>
+
+      <h3>Remaining Balance</h3>
+      <p>Rs {{balance}} </p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Expense</title>
+</head>
+<body>
+
+<h2>Edit Expense</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Title:</label>
+    <input type="text" name="title" value="{{ expense.title }}"><br><br>
+
+    <label>Amount:</label>
+    <input type="number" name="amount" value="{{ expense.amount }}"><br><br>
+
+    <label>Category:</label>
+    <select name="category">
+        <option value="Food" {% if expense.category == "Food" %}selected{% endif %}>Food</option>
+        <option value="Transport" {% if expense.category == "Transport" %}selected{% endif %}>Transport</option>
+        <option value="Shopping" {% if expense.category == "Shopping" %}selected{% endif %}>Shopping</option>
+        <option value="Bills" {% if expense.category == "Bills" %}selected{% endif %}>Bills</option>
+        <option value="Other" {% if expense.category == "Other" %}selected{% endif %}>Other</option>
+    </select><br><br>
+
+    <label>Date:</label>
+    <input type="date" name="date" value="{{ expense.date }}"><br><br>
+
+    <button type="submit">Update Expense</button>
+
+</form>
+
+<br>
+<a href="{% url 'manage' %}">Back</a>
+
+</body>
+</html>
