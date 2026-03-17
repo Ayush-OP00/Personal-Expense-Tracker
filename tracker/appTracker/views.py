@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 from .models import Expense
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
+
 
 # Create your views here.
 def login_view(request):
@@ -68,3 +71,41 @@ def delete_expense(request, id):
 
     return redirect('manage')
     
+# Data_Visualization
+def data_visualization(request):
+
+    expenses = Expense.objects.all()
+
+    #Filter Logic
+    category = request.GET.get('category')
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    if category: expenses = expenses.filter(category=category)
+
+    if start_date: expenses = expenses.filter(date_gte=start_date)
+
+    if end_date: expenses = expenses.filter(date_lte=end_date)
+
+    # MONTHLY SUMMARY
+    monthly_data = (expenses.annotate(month=TruncMonth('date'))
+                    .values('month')
+                    .annotate(total=Sum('amount'))
+                    .order_by('month'))
+
+    # TOTAL CALCULATIONS
+    total_expense = expenses.aggregate(total=Sum('amount'))['total'] or 0
+
+    total_income = 0
+
+    balance = total_income - total_expense
+
+    context = {
+        'expenses':expenses,
+        'monthly_data':monthly_data,
+        'total_expense':total_expense,
+        'total_income': total_income,
+        'balance': balance,
+    }
+    return render(request,'dataVisualization.html', context)
+

@@ -18,7 +18,9 @@
             <option value="shopping">Shopping</option>
             <option value="other">Other</option>
         </select>
+        <label for="">From-</label>
         <input type="date" value="start_date">
+        <label for="">To-</label>
         <input type="date" value="end_date">
         <button type="submit">Apply</button>
     </form>
@@ -56,10 +58,10 @@
         </tr>
         {% for item in monthly_data %}
         <tr>
-            <td>{{item.month}}</td>
+            <td>{{item.month|date:"F Y"}}</td>
             <td>{{item.total}}</td>
         </tr>
-        {{% empty %}}
+        {% empty %}
         <tr>
             <td colspan="2">No Data Available</td>
         </tr>
