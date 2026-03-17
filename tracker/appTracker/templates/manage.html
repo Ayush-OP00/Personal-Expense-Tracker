@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management</title>
+</head>
+<body>
+    <h2>Expense management</h2>
+
+    <form action="" method="post">
+        <h3>Add EXPENSES</h3>
+        {% csrf_token %}
+        <label for="">Expense Title</label>
+        <input type="text" name="title"><br><br>
+        <label for="">Amount</label>
+        <input type="number" name="amount">
+        <label for="">Category</label>
+        <select name="category">
+            <option value="food">Food</option>
+            <option value="shopping">Shopping</option>
+            <option value="transport">Transport</option>
+            <option value="bills">Bills</option>
+            <option value="other">Other</option>
+        </select>
+        <label for="">Date</label>
+        <input type="date" name="date"><br><br>
+
+        <button type="submit ">Add Expense</button>
+    </form>
+
+    <!-- Expense Table -->
+
+    <h2>Your expenses</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>title</th>
+            <th>amount</th>
+            <th>category</th>
+            <th>date</th>
+            <th>action</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{expense.id}}</td>
+            <td>{{expense.title}}</td>
+            <td>{{expense.amount}}</td>
+            <td>{{expense.category}}</td>
+            <td>{{expense.date}}</td>
+
+            <td>
+                <a href="{% url 'edit_expense' expense.id %}">
+                    <button class="edit">Edit</button>
+                </a>
+                <a href="{% url 'delete_expense' expense.id %}">
+                    <button class="delete">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
