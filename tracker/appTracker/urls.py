@@ -1,9 +1,11 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from appTracker.views import registration, login_view, manage_expenses, edit_expense, delete_expense, data_visualization, logout_view
 
 urlpatterns = [
     path('', registration, name='reg'),
-    path('login/', login_view, name='login'),
+    # path('login/', login_view, name='login'), >> More secure line
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
 
     path('manage/', manage_expenses, name='manage'),
 

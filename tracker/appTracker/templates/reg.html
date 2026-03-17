@@ -11,6 +11,9 @@
 
     <form action="" method="post">
         {% csrf_token %}
+        {% if error %}
+        <p style="color:red;"{{error}}></p>
+        {% endif %}
         <label for="">Username:</label>
         <input type="text" name="username"><br><br>
         <label for="">E-mail:</label>

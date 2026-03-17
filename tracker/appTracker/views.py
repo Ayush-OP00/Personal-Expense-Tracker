@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
-from .models import Expense
+from .models import Expense, Income
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
 
@@ -11,14 +11,20 @@ from django.db.models.functions import TruncMonth
 # Create your views here.
 def login_view(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        user=authenticate(request, username=username, password=password)
-        print (user, username, password)
+        # print("USERNAME:", username)
+        # print("PASSWORD:", password)
+
+        user = User.objects.create_user(username=username, password=password)
+        # print("USER:", user)
+        
         if user is not None:
             login(request, user)
-            return  redirect('manage')
+            return redirect('dashboard') #this is key
+        else:
+           return render(request, 'login.html',{'error': 'Invalid username or password'})
     return render(request, 'login.html')
 def registration(request):
     if request.method == "POST":
@@ -26,28 +32,38 @@ def registration(request):
         email = request.POST['email']
         password = request.POST['password']
 
+        # Check if user already exists
+        if User.objects.filter(username=username).exists():
+            return render(request, 'reg.html', {'error': 'Username already exists'})
+
         user = User.objects.create_user(username=username, email = email, password=password )
         user.save()
         
         return redirect('login')
     return render(request, 'reg.html')  
 
+@login_required
 def manage_expenses(request):
 
     if request.method == "POST":
         if 'income_submit' in request.POST: 
             amount = request.POST.get('income')
-            Income.objects.create(amount=amount)
+            Income.objects.create(user = request.user, amount=amount)
         else:
             title=request.POST.get('title')
             amount=request.POST.get('amount')
             category=request.POST.get('category')
             date=request.POST.get('date')
 
-            Expense.objects.create(title=title, amount=amount, category=category, date=date)
+            Expense.objects.create(user = request.user, title=title, amount=amount, category=category, date=date)
         return redirect('manage')
-    expenses = Expense.objects.all()
-    return render(request, 'manage.html', {'expenses':expenses})
+    # only logged-in user's data'
+    expenses = Expense.objects.filter(user = request.user)
+    incomes = Income.objects.filter(user = request.user)
+
+    total_income = sum([i.amount for i in incomes])
+
+    return render(request, 'manage.html', {'expenses':expenses, 'total_income': total_income})
 
 # edit expense
 
@@ -76,9 +92,10 @@ def delete_expense(request, id):
     return redirect('manage')
     
 # Data_Visualization
+@login_required
 def data_visualization(request):
 
-    expenses = Expense.objects.all()
+    expenses = Expense.objects.filter(user=request.user)
 
     #Filter Logic
     category = request.GET.get('category')
@@ -100,7 +117,8 @@ def data_visualization(request):
     # TOTAL CALCULATIONS
     total_expense = expenses.aggregate(total=Sum('amount'))['total'] or 0
 
-    total_income = Income.objects.aggregate(total=Sum('amount'))['total'] or 0
+    total_income = Income.objects.filter(user = request.user)\
+        .aggregate(total=Sum('amount'))['total'] or 0
 
     balance = total_income - total_expense
 
