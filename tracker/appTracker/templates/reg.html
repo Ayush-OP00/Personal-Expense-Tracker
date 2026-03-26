@@ -2,27 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'regs.css' %}">
 </head>
 <body>
-    <h1>Register here!!</h1>
-    <h3>A step forward to become organised...</h3>
+    <div class="container">
+        <h1>Register here!!</h1>
+        <h3>A step forward to become organised...</h3>
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {% if error %}
-        <p style="color:red;"{{error}}></p>
-        {% endif %}
-        <label for="">Username:</label>
-        <input type="text" name="username"><br><br>
-        <label for="">E-mail:</label>
-        <input type="text" name="email"><br><br>
-        <label for="">Password:</label>
-        <input type="password" name="password"><br><br>
-        <button>SUBMIT</button>
-    </form>
-    <h2>If already registered. Login here !!</h2>
-    <a href="{% url "login" %}">LOGIN</a>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <label>Username:</label>
+            <input type="text" name="username">
+
+            <label>E-mail:</label>
+            <input type="text" name="email">
+
+            <label>Password:</label>
+            <input type="password" name="password">
+
+            <button type="submit">SUBMIT</button>
+        </form>
+
+        <h2>If already registered, login here!</h2>
+        <a href="{% url 'login' %}">LOGIN</a>
+    </div>
 </body>
 </html>
