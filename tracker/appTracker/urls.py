@@ -4,8 +4,8 @@ from appTracker.views import registration, login_view, manage_expenses, edit_exp
 
 urlpatterns = [
     path('', registration, name='reg'),
-    # path('login/', login_view, name='login'), >> More secure line
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', login_view, name='login'), # More secure line
+    # path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
 
     path('manage/', manage_expenses, name='manage'),
 

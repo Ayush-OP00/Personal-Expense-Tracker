@@ -17,15 +17,22 @@ def login_view(request):
         # print("USERNAME:", username)
         # print("PASSWORD:", password)
 
-        user = User.objects.create_user(username=username, password=password)
+        user = authenticate(
+            request, 
+            username = username, 
+            password = password)
         # print("USER:", user)
         
         if user is not None:
             login(request, user)
             return redirect('dashboard') #this is key
         else:
-           return render(request, 'login.html',{'error': 'Invalid username or password'})
+           return render(request,
+                          'login.html',
+                          {'error': 'Invalid username or password'}
+                          )
     return render(request, 'login.html')
+
 def registration(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -104,9 +111,9 @@ def data_visualization(request):
 
     if category: expenses = expenses.filter(category=category)
 
-    if start_date: expenses = expenses.filter(date_gte=start_date)
+    if start_date: expenses = expenses.filter(date__gte=start_date)
 
-    if end_date: expenses = expenses.filter(date_lte=end_date)
+    if end_date: expenses = expenses.filter(date__lte=end_date)
 
     # MONTHLY SUMMARY
     monthly_data = (expenses.annotate(month=TruncMonth('date'))

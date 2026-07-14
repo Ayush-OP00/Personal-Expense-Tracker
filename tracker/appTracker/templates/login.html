@@ -15,7 +15,12 @@
         <input type="text" name="username" id=""><br><br>
         <label for="">Password</label>
         <input type="password" name="password" id=""><br><br>
-        <button>SUBMIT</button>
+        <button type="submit">SUBMIT</button>
+        {% if error %}
+        <p style="color:red">
+            {{error}}
+        </p>
+        {% endif %}
     </form>
     <p>Don't have an account?
         <a href="{% url 'reg' %}">Register here !!</a></p>
