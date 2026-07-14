@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Dashboard
+
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+
+        <div style="
+            background:#d4edda;
+            color:#155724;
+            padding:10px;
+            margin-bottom:15px;
+            border-radius:5px;
+        ">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+<h1>Expense management</h1>
+
+<!-- enter the income -->
+<h2>Set your Total Income</h2>
+<form action="" method="post">
+    {% csrf_token %}
+
+    <label for="">Enter total Income:</label>
+    <input type="number" name="income" step="0.01" min="0" required>
+
+    <button type="submit" name="income_submit">Save Income</button>
+</form><br>
+
+<p><strong>Total Income:</strong> ₹{{ total_income }}</p>
+
+<hr>
+
+<!-- Expense management -->
+
+<form action="" method="post">
+    <h3>Add EXPENSES</h3>
+    {% csrf_token %}
+    <label for="">Expense Title</label>
+    <input type="text" name="title" required><br><br>
+    <label for="">Amount</label>
+    <input type="number" name="amount" step="0.01" min="0" required><br><br> 
+    {% comment %} step="0.01" is especially useful because we are using in python- DecimalField(max_digits=10, decimal_places=2)  {% endcomment %}
+    <label for="">Category</label>
+    <select name="category" required>
+        <option value="food">Food</option>
+        <option value="shopping">Shopping</option>
+        <option value="transport">Transport</option>
+        <option value="bills">Bills</option>
+        <option value="other">Other</option>
+    </select>
+    <label for="">Date</label>
+    <input type="date" name="date" required><br><br>
+
+    <button type="submit">Add Expense</button>
+</form><br>
+
+<a href="{% url 'dashboard' %}" class="btn">
+    View Expense Summary
+</a>
+
+
+<!-- Expense Table -->
+
+<h2>Your Expenses</h2>
+
+{% if expenses %}
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for expense in expenses %}
+    <tr>
+        <td>{{ expense.id }}</td>
+        <td>{{ expense.title }}</td>
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.date }}</td>
+
+        <td>
+            <a href="{% url 'edit_expense' expense.id %}">
+                <button class="edit">Edit</button>
+            </a>
+
+            <form action="{% url 'delete_expense' expense.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="delete">
+                    Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No expenses added yet.</p>
+
+{% endif %}

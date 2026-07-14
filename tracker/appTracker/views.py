@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Expense, Income
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
+from django.contrib import messages
 
 
 # Create your views here.
@@ -56,6 +57,7 @@ def manage_expenses(request):
         if 'income_submit' in request.POST: 
             amount = request.POST.get('income')
             Income.objects.create(user = request.user, amount=amount)
+            messages.success(request, 'Income added successfully!')
         else:
             title=request.POST.get('title')
             amount=request.POST.get('amount')
@@ -63,6 +65,7 @@ def manage_expenses(request):
             date=request.POST.get('date')
 
             Expense.objects.create(user = request.user, title=title, amount=amount, category=category, date=date)
+            messages.success(request, "Expense added successfully.")
         return redirect('manage')
     # only logged-in user's data'
     expenses = Expense.objects.filter(user = request.user)
@@ -75,7 +78,7 @@ def manage_expenses(request):
 # edit expense
 
 def edit_expense(request, id):
-    expense =  get_object_or_404(Expense, id=id)
+    expense =  get_object_or_404(Expense, id=id, user=request.user)
 
     if request.method=="POST":
         expense.title = request.POST.get('title')
@@ -84,6 +87,7 @@ def edit_expense(request, id):
         expense.date = request.POST.get('date')
 
         expense.save()
+        messages.success(request, "Expense updated successfully.")
 
         return redirect('manage')
     return render(request,'edit_expense.html', {'expense' : expense})
@@ -92,11 +96,16 @@ def edit_expense(request, id):
 
 def delete_expense(request, id):
 
-    expense = get_object_or_404(Expense, id=id)
+    if request.method == "POST":
+        expense = get_object_or_404(
+            Expense,
+            id=id,
+            user=request.user
+        )
+        expense.delete()
+        messages.success(request, "Expense deleted successfully.")
 
-    expense.delete()
-
-    return redirect('manage')
+    return redirect("manage")
     
 # Data_Visualization
 @login_required
