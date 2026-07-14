@@ -32,7 +32,7 @@ def login_view(request):
                           'login.html',
                           {'error': 'Invalid username or password'}
                           )
-    return render(request, 'login.html')
+    return render(request, 'accounts/login.html')
 
 def registration(request):
     if request.method == "POST":
@@ -73,7 +73,7 @@ def manage_expenses(request):
 
     total_income = sum([i.amount for i in incomes])
 
-    return render(request, 'manage.html', {'expenses':expenses, 'total_income': total_income})
+    return render(request, 'dashboard/manage.html', {'expenses':expenses, 'total_income': total_income})
 
 # edit expense
 
@@ -90,7 +90,7 @@ def edit_expense(request, id):
         messages.success(request, "Expense updated successfully.")
 
         return redirect('manage')
-    return render(request,'edit_expense.html', {'expense' : expense})
+    return render(request,'expenses/edit_expense.html', {'expense' : expense})
 
 # Delete Expense
 
@@ -145,7 +145,7 @@ def data_visualization(request):
         'total_income': total_income,
         'balance': balance,
     }
-    return render(request,'dataVisualization.html', context)
+    return render(request,'dashboard/visualization.html', context)
 
 # LOGOUT FUNCTION
 def logout_view(request):
