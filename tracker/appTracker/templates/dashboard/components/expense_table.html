@@ -18,7 +18,7 @@
     <tr>
         <td>{{ expense.id }}</td>
         <td>{{ expense.title }}</td>
-        <td>{{ expense.amount }}</td>
+        <td>₹{{ expense.amount }}</td>
         <td>{{ expense.category }}</td>
         <td>{{ expense.date }}</td>
 
@@ -32,10 +32,10 @@
 
             <form action="{% url 'delete_expense' expense.id %}" method="POST">
                 {% csrf_token %}
-                <button >
+                <button class="btn btn-warning btn-sm">
 
                     Delete
-                    
+
                 </button>
             </form>
         </td>
