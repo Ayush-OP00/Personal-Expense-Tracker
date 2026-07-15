@@ -1,51 +1,143 @@
-<!-- Expense Table -->
+<div class="card border-0 shadow-sm rounded-4">
 
-<h2>Your Expenses</h2>
+    <div class="card-body">
 
-{% if expenses %}
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Amount</th>
-        <th>Category</th>
-        <th>Date</th>
-        <th>Action</th>
-    </tr>
+            <h4>
 
-    {% for expense in expenses %}
-    <tr>
-        <td>{{ expense.id }}</td>
-        <td>{{ expense.title }}</td>
-        <td>₹{{ expense.amount }}</td>
-        <td>{{ expense.category }}</td>
-        <td>{{ expense.date }}</td>
+                Recent Transactions
 
-        <td>
-            <a href="{% url 'edit_expense' expense.id %}" 
-            class="btn btn-warning btn-sm">
-            
-            Edit
+            </h4>
 
-            </a>
+            <span class="badge bg-primary">
 
-            <form action="{% url 'delete_expense' expense.id %}" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-warning btn-sm">
+                {{ transaction_count }} Transactions
 
-                    Delete
+            </span>
 
-                </button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
+        </div>
 
-</table>
+        {% if expenses %}
 
-{% else %}
+        <div class="table-responsive">
 
-<p>No expenses added yet.</p>
+            <table class="table table-hover align-middle">
 
-{% endif %}
+                <thead>
+
+                    <tr>
+
+                        <th>Title</th>
+
+                        <th>Category</th>
+
+                        <th>Amount</th>
+
+                        <th>Date</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for expense in expenses %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+
+                                {{ expense.title }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge category-badge">
+
+                                {{ expense.category }}
+
+                            </span>
+
+                        </td>
+
+                        <td class="fw-bold text-danger">
+
+                            ₹{{ expense.amount }}
+
+                        </td>
+
+                        <td>
+
+                            {{ expense.date }}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'edit_expense' expense.id %}"
+
+                               class="btn btn-warning btn-sm">
+
+                                Edit
+
+                            </a>
+
+                            <form
+                                action="{% url 'delete_expense' expense.id %}"
+                                method="POST"
+                                class="d-inline">
+
+                                {% csrf_token %}
+
+                                <button
+                                    class="btn btn-danger btn-sm">
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <h5>
+
+                No expenses added yet.
+
+            </h5>
+
+            <p>
+
+                Start by adding your first expense.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
