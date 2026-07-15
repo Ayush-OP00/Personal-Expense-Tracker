@@ -1,0 +1,51 @@
+.sidebar{
+
+    min-height:100vh;
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+.logo{
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+.sidebar .nav-link{
+
+    color:#cbd5e1;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.sidebar .nav-link:hover{
+
+    background:#334155;
+
+    color:white;
+
+}
+
+.sidebar .nav-link.active{
+
+    background:#3b82f6;
+
+    color:white;
+
+}
+
+.logout{
+
+    color:#ef4444 !important;
+
+}
