@@ -1,0 +1,17 @@
+.navbar{
+
+    height:70px;
+
+    background:white;
+
+    border-bottom:1px solid #e2e8f0;
+
+}
+
+.navbar-brand{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+}

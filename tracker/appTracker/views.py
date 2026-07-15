@@ -71,12 +71,15 @@ def manage_expenses(request):
     expenses = Expense.objects.filter(user = request.user)
     incomes = Income.objects.filter(user = request.user)
 
-    total_income = sum([i.amount for i in incomes])
+    total_income = (
+    incomes.aggregate(total=Sum("amount"))["total"] or 0
+)
 
     return render(request, 'dashboard/manage.html', {'expenses':expenses, 'total_income': total_income})
 
 # edit expense
 
+@login_required
 def edit_expense(request, id):
     expense =  get_object_or_404(Expense, id=id, user=request.user)
 
@@ -94,6 +97,7 @@ def edit_expense(request, id):
 
 # Delete Expense
 
+@login_required
 def delete_expense(request, id):
 
     if request.method == "POST":

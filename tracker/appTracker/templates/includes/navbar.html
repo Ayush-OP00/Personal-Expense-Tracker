@@ -8,19 +8,42 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm px-4">
 
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-            <span class="navbar-brand fw-bold">
+        <a class="navbar-brand fw-bold">
 
-                Expense Tracker
+            Expense Tracker
+
+        </a>
+
+        <div class="ms-auto d-flex align-items-center">
+
+            <span class="me-3">
+
+                Welcome,
+
+                <strong>
+
+                    {{ request.user.username }}
+
+                </strong>
 
             </span>
 
+            <a href="{% url 'logout' %}"
+               class="btn btn-outline-danger btn-sm">
+
+                Logout
+
+            </a>
+
         </div>
 
-    </nav>
+    </div>
+
+</nav>
 </body>
 
 </html>

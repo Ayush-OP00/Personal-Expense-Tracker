@@ -1,13 +1,16 @@
-body{
-
-    font-family:'Poppins',sans-serif;
-
-    background:#f8fafc;
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-main{
-    background:#f8fafc;
-    min-height:100vh;
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f1f5f9;
+}
 
+.content-area{
+    min-height:100vh;
+    padding:40px;
+    background:#f8fafc;
 }
