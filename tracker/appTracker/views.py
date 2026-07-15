@@ -26,10 +26,10 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            return redirect('dashboard') #this is key
+            return redirect('manage') #this is key
         else:
            return render(request,
-                          'login.html',
+                          'accounts/login.html',
                           {'error': 'Invalid username or password'}
                           )
     return render(request, 'accounts/login.html')
@@ -42,13 +42,13 @@ def registration(request):
 
         # Check if user already exists
         if User.objects.filter(username=username).exists():
-            return render(request, 'reg.html', {'error': 'Username already exists'})
+            return render(request, 'accounts/register.html', {'error': 'Username already exists'})
 
         user = User.objects.create_user(username=username, email = email, password=password )
         user.save()
         
         return redirect('login')
-    return render(request, 'reg.html')  
+    return render(request, 'accounts/register.html')  
 
 @login_required
 def manage_expenses(request):
