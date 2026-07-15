@@ -1,28 +1,110 @@
-<!-- Expense management -->
+<div class="card shadow-sm border-0 rounded-4">
 
-<form method="post">
-    {% comment %} The empty action="" is unnecessary because the form submits to the current URL by default. {% endcomment %}
-    <h3 class='mb-3'>Add Expense</h3>
-    {% csrf_token %}
-    <label for="">Expense Title</label>
-    <input type="text" name="title" required><br><br>
-    <label for="">Amount</label>
-    <input type="number" name="amount" step="0.01" min="0" required><br><br> 
-    {% comment %} step="0.01" is especially useful because we are using in python- DecimalField(max_digits=10, decimal_places=2)  {% endcomment %}
-    <label for="">Category</label>
-    <select name="category" required>
-        <option value="food">Food</option>
-        <option value="shopping">Shopping</option>
-        <option value="transport">Transport</option>
-        <option value="bills">Bills</option>
-        <option value="other">Other</option>
-    </select>
-    <label for="">Date</label>
-    <input type="date" name="date" required><br><br>
+    <div class="card-body">
 
-    <button type="submit">Add Expense</button>
-</form><br>
+        <h4 class="mb-4">
 
-<a href="{% url 'dashboard' %}" class="btn">
-    View Expense Summary
-</a>
+            Add Expense
+
+        </h4>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Expense Title
+
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    required>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Amount
+
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="amount"
+                            step="0.01"
+                            min="0"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Category
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            name="category">
+
+                            <option value="food">Food</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="transport">Transport</option>
+                            <option value="bills">Bills</option>
+                            <option value="other">Other</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Expense Date
+
+                </label>
+
+                <input
+                    class="form-control"
+                    type="date"
+                    name="date"
+                    required>
+
+            </div>
+
+            <button
+                class="btn btn-primary w-100">
+
+                Add Expense
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

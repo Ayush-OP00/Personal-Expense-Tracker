@@ -79,3 +79,28 @@
     background:#fef3c7;
 
 }
+
+.card{
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.form-control,
+.form-select{
+
+    height:48px;
+
+}
+
+.btn{
+
+    border-radius:10px;
+
+}
