@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.models import User
@@ -54,28 +56,50 @@ def registration(request):
 def manage_expenses(request):
 
     if request.method == "POST":
-        if 'income_submit' in request.POST: 
+        if 'income_submit' in request.POST:
             amount = request.POST.get('income')
-            Income.objects.create(user = request.user, amount=amount)
-            messages.success(request, 'Income added successfully!')
+            Income.objects.create(user=request.user, amount=amount)
+            messages.success(request, "Income added successfully!")
+
         else:
-            title=request.POST.get('title')
-            amount=request.POST.get('amount')
-            category=request.POST.get('category')
-            date=request.POST.get('date')
+            title = request.POST.get('title')
+            amount = request.POST.get('amount')
+            category = request.POST.get('category')
+            date = request.POST.get('date')
 
-            Expense.objects.create(user = request.user, title=title, amount=amount, category=category, date=date)
-            messages.success(request, "Expense added successfully.")
+            Expense.objects.create(
+                user=request.user,
+                title=title,
+                amount=amount,
+                category=category,
+                date=date
+            )
+
+            messages.success(request, "Expense added successfully!")
+
         return redirect('manage')
-    # only logged-in user's data'
-    expenses = Expense.objects.filter(user = request.user)
-    incomes = Income.objects.filter(user = request.user)
 
-    total_income = (
-    incomes.aggregate(total=Sum("amount"))["total"] or 0
-)
+    # Fetch data
+    expenses = Expense.objects.filter(user=request.user)
+    incomes = Income.objects.filter(user=request.user)
 
-    return render(request, 'dashboard/manage.html', {'expenses':expenses, 'total_income': total_income})
+    total_income = incomes.aggregate(total=Sum("amount"))["total"] or 0
+
+    total_expense = expenses.aggregate(total=Sum("amount"))["total"] or 0
+
+    balance = total_income - total_expense
+
+    transaction_count = expenses.count()
+
+    context = {
+        "expenses": expenses,
+        "total_income": total_income,
+        "total_expense": total_expense,
+        "balance": balance,
+        "transaction_count": transaction_count,
+    }
+
+    return render(request, "dashboard/manage.html", context)
 
 # edit expense
 

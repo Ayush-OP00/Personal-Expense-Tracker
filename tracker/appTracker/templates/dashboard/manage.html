@@ -8,6 +8,8 @@ Dashboard
 
 {% block content %}
 
+{% include "dashboard/components/summary_cards.html" %}
+
 <h1 class="mb-4">
 
 Expense Management
@@ -23,8 +25,6 @@ Expense Management
 
     {% endfor %}
 {% endif %}
-
-{% include "dashboard/components/summary_cards.html" %}
 
 {% include "dashboard/components/income_form.html" %}
 
