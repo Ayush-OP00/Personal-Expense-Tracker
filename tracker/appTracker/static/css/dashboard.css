@@ -1,3 +1,145 @@
+/* ---------- Expense Table ---------- */
+
+.expense-table{
+
+    border-collapse:separate;
+
+    border-spacing:0 14px;
+
+}
+
+.expense-table thead th{
+
+    color:var(--text-light);
+
+    font-weight:600;
+
+    border:none;
+
+}
+
+.expense-table tbody tr{
+
+    background:white;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.25s;
+
+}
+
+.expense-table tbody tr:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.expense-table td{
+
+    vertical-align:middle;
+
+    border:none;
+
+    padding:18px;
+
+}
+
+.table-search{
+
+    width:250px;
+
+}
+
+.summary-title{
+
+    color:var(--text-light);
+
+    font-weight:500;
+
+}
+
+.summary-value{
+
+    font-size:2.35rem;
+
+    font-weight:700;
+
+    line-height:1;
+
+    margin-top:10px;
+
+}
+
+.summary-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:22px;
+
+    transition:.25s;
+
+}
+
+.summary-icon i{
+
+    color:white;
+
+    font-size:34px;
+
+}
+
+.summary-icon.income{
+
+    background:linear-gradient(
+        135deg,
+        #10B981,
+        #34D399
+    );
+
+}
+
+.summary-icon.expense{
+
+    background:linear-gradient(
+        135deg,
+        #EF4444,
+        #F87171
+    );
+
+}
+
+.summary-icon.balance{
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #60A5FA
+    );
+
+}
+
+.summary-icon.transaction{
+
+    background:linear-gradient(
+        135deg,
+        #F59E0B,
+        #FBBF24
+    );
+
+}
+
 .summary-card{
 
     background:white;
@@ -16,7 +158,7 @@
 
 .summary-card:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-4px) scale(1.02);
 
 }
 
@@ -82,13 +224,19 @@
 
 .card{
 
-    transition:.3s;
+    transition:
+
+        transform .25s,
+
+        box-shadow .25s;
 
 }
 
 .card:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-6px);
+
+    box-shadow:0 16px 35px rgba(0,0,0,.12);
 
 }
 
@@ -133,17 +281,43 @@
 
 }
 
-.category-badge{
+.category-badge.food{
 
-    background:#e2e8f0;
+    background:#DCFCE7;
 
-    color:#334155;
+    color:#15803D;
 
-    font-weight:500;
+}
 
-    padding:8px 14px;
+.category-badge.transport{
 
-    border-radius:50px;
+    background:#DBEAFE;
+
+    color:#1D4ED8;
+
+}
+
+.category-badge.shopping{
+
+    background:#F3E8FF;
+
+    color:#7E22CE;
+
+}
+
+.category-badge.bills{
+
+    background:#FEF3C7;
+
+    color:#B45309;
+
+}
+
+.category-badge.other{
+
+    background:#E5E7EB;
+
+    color:#374151;
 
 }
 
