@@ -24,4 +24,12 @@ Dashboard
         {% include "dashboard/components/expense_table.html" %}
     </div>
 
+    <div class="mt-4">
+        {% include "dashboard/components/charts.html" %}
+    </div>
+
+    {{ monthly_data|json_script:"monthly-data" }}
+{{ category_data|json_script:"category-data" }}
+
+
 {% endblock %}

@@ -9,6 +9,7 @@ from .models import Expense, Income
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
 from django.contrib import messages
+from appTracker.models import Expense, Income
 
 
 # Create your views here.
@@ -81,6 +82,23 @@ def manage_expenses(request):
 
     # Fetch data
     expenses = Expense.objects.filter(user=request.user)
+
+    # MONTHLY SUMMARY
+    monthly_queryset = (
+    expenses
+    .annotate(month=TruncMonth("date"))
+    .values("month")
+    .annotate(total=Sum("amount"))
+    .order_by("month")
+)
+    monthly_data = []
+    
+    for item in monthly_queryset:
+        monthly_data.append({
+                "month": item["month"].strftime("%b %Y"),
+                "total": float(item["total"])
+                })
+
     incomes = Income.objects.filter(user=request.user)
 
     total_income = incomes.aggregate(total=Sum("amount"))["total"] or 0
@@ -91,12 +109,29 @@ def manage_expenses(request):
 
     transaction_count = expenses.count()
 
+    category_queryset = (
+    expenses
+    .values("category")
+    .annotate(total=Sum("amount"))
+    .order_by("category")
+    )
+    
+    category_data = []
+    
+    for item in category_queryset:
+        category_data.append({
+            "category": item["category"],
+            "total": float(item["total"])
+        })
+
     context = {
         "expenses": expenses,
         "total_income": total_income,
         "total_expense": total_expense,
         "balance": balance,
         "transaction_count": transaction_count,
+        "monthly_data": monthly_data,
+        "category_data": category_data,
     }
 
     return render(request, "dashboard/manage.html", context)
@@ -152,27 +187,7 @@ def data_visualization(request):
 
     if end_date: expenses = expenses.filter(date__lte=end_date)
 
-    # MONTHLY SUMMARY
-    monthly_data = (expenses.annotate(month=TruncMonth('date'))
-                    .values('month')
-                    .annotate(total=Sum('amount'))
-                    .order_by('month'))
-
-    # TOTAL CALCULATIONS
-    total_expense = expenses.aggregate(total=Sum('amount'))['total'] or 0
-
-    total_income = Income.objects.filter(user = request.user)\
-        .aggregate(total=Sum('amount'))['total'] or 0
-
-    balance = total_income - total_expense
-
-    context = {
-        'expenses':expenses,
-        'monthly_data':monthly_data,
-        'total_expense':total_expense,
-        'total_income': total_income,
-        'balance': balance,
-    }
+    
     return render(request,'dashboard/visualization.html', context)
 
 # LOGOUT FUNCTION
