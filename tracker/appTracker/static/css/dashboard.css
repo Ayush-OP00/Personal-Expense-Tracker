@@ -46,11 +46,7 @@
 
 }
 
-.table-search{
-
-    width:250px;
-
-}
+/* Summary cards */
 
 .summary-title{
 
@@ -180,6 +176,30 @@
 
 }
 
+@media (max-width:768px){
+
+    .content-area{
+
+        padding:20px;
+
+    }
+
+    .summary-card{
+
+        margin-bottom:20px;
+
+    }
+
+    .table-search{
+
+        width:100%;
+
+        margin-top:15px;
+
+    }
+
+}
+
 .icon{
 
     width:60px;
@@ -222,13 +242,41 @@
 
 }
 
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
 .card{
+
+    animation:fadeIn .4s ease;
 
     transition:
 
         transform .25s,
 
         box-shadow .25s;
+
+}
+
+.card-body{
+
+    padding:2rem;
 
 }
 
@@ -245,6 +293,8 @@
     box-shadow:0 16px 35px rgba(0,0,0,.12);
 
 }
+
+/* Forms */
 
 .form-control,
 .form-select{
@@ -272,12 +322,21 @@
 .btn{
 
     border-radius:10px;
+    min-height:42px;
 
 }
+
+/* Tables */
 
 .table{
 
     margin-bottom:0;
+
+}
+
+.table-search{
+
+    width:250px;
 
 }
 
