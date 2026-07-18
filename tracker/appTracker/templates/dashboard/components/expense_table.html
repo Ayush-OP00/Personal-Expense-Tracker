@@ -8,6 +8,8 @@
 
                 <h4 class="fw-bold mb-1">
                     Recent Transactions
+
+
                 </h4>
 
                 <span class="badge bg-primary rounded-pill px-3 py-2">
@@ -16,16 +18,9 @@
 
             </div>
 
-            <div class="search-box">
-
-                <i class="bi bi-search"></i>
-
-                <input type="text" class="form-control table-search" id="searchExpense"
-                    placeholder="Search expenses...">
-
-            </div>
-
         </div>
+
+        {% include 'dashboard/components/filter_toolbar.html' %}
 
         {% if expenses %}
 

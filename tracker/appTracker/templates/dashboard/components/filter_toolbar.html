@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Toolbar</title>
+</head>
+<body>
+    <div class="filter-toolbar">
+
+    <div class="search-box">
+
+        <i class="bi bi-search"></i>
+
+        <input
+            type="text"
+            class="form-control table-search"
+            id="searchExpense"
+            placeholder="Search expenses..."
+        >
+
+    </div>
+
+    <select
+        class="form-select filter-select"
+        id="categoryFilter">
+
+        <option value="">All Categories</option>
+
+        <option value="food">Food</option>
+
+        <option value="transport">Transport</option>
+
+        <option value="shopping">Shopping</option>
+
+        <option value="bills">Bills</option>
+
+        <option value="other">Other</option>
+
+    </select>
+
+    <input
+        type="date"
+        class="form-control filter-date"
+        id="dateFilter">
+
+    <button
+        class="btn btn-outline-secondary"
+        id="resetFilters">
+
+        <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+        Reset
+
+    </button>
+
+</div>
+</body>
+</html>

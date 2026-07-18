@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    const dateFilter = document.getElementById("dateFilter");
+
+    const resetButton = document.getElementById("resetFilters");
+
     const searchInput = document.getElementById("searchExpense");
 
     if (!searchInput) return;
@@ -32,17 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (noResults) {
 
-    if (visible === 0) {
+            if (visible === 0) {
 
-        noResults.classList.remove("d-none");
+                noResults.classList.remove("d-none");
 
-    } else {
+            } else {
 
-        noResults.classList.add("d-none");
+                noResults.classList.add("d-none");
 
-    }
+            }
 
-}
+        }
 
         const value = this.value.toLowerCase().trim();
 
