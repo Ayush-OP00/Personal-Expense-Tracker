@@ -198,6 +198,12 @@
 
     }
 
+    .search-box{
+
+    width:100%;
+
+}
+
 }
 
 .icon{
@@ -259,6 +265,45 @@
         transform:translateY(0);
 
     }
+
+}
+
+/* Search Box */
+.search-box{
+
+    position:relative;
+
+    width:320px;
+
+    max-width:100%;
+
+}
+
+.search-box i{
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--text-light);
+
+}
+
+.search-box input{
+
+    padding-left:42px;
+
+}
+
+.search-box input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .25rem rgba(37,99,235,.15);
 
 }
 
