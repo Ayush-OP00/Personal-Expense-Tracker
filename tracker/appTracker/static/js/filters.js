@@ -1,31 +1,47 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const categoryFilter = document.getElementById("categoryFilter");
-
     const dateFilter = document.getElementById("dateFilter");
-
     const resetButton = document.getElementById("resetFilters");
-
     const searchInput = document.getElementById("searchExpense");
+    const noResults = document.getElementById("noResults");
+    const rows = document.querySelectorAll(".expense-table tbody tr");
 
     if (!searchInput) return;
 
-    const rows = document.querySelectorAll(".expense-table tbody tr");
 
-    const noResults = document.getElementById("noResults");
+    function applyFilters() {
 
-    searchInput.addEventListener("keyup", function () {
+        searchInput.focus();
+
+        const searchableText =
+            `${title} ${category}`.toLowerCase();
+
+        const matchesSearch =
+            searchableText.includes(searchValue);
+        const categoryValue = categoryFilter.value.toLowerCase();
+        const dateValue = dateFilter.value;
 
         let visible = 0;
 
         rows.forEach(row => {
 
-            const text = row.innerText.toLowerCase();
+            const title = row.cells[0].innerText.toLowerCase();
+            const category = row.cells[1].innerText.toLowerCase();
+            const date = row.dataset.date;
 
-            if (text.includes(value)) {
+            const matchesSearch =
+                title.includes(searchValue);
+
+            const matchesCategory =
+                !categoryValue || category.includes(categoryValue);
+
+            const matchesDate =
+                !dateValue || date === dateValue;
+
+            if (matchesSearch && matchesCategory && matchesDate) {
 
                 row.style.display = "";
-
                 visible++;
 
             } else {
@@ -39,34 +55,28 @@ document.addEventListener("DOMContentLoaded", function () {
         if (noResults) {
 
             if (visible === 0) {
-
                 noResults.classList.remove("d-none");
-
             } else {
-
                 noResults.classList.add("d-none");
-
             }
 
         }
 
-        const value = this.value.toLowerCase().trim();
+    }
 
-        rows.forEach(row => {
+    searchInput.addEventListener("input", applyFilters);
 
-            const text = row.innerText.toLowerCase();
+    categoryFilter.addEventListener("change", applyFilters);
 
-            if (text.includes(value)) {
+    dateFilter.addEventListener("change", applyFilters);
 
-                row.style.display = "";
+    resetButton.addEventListener("click", function () {
 
-            } else {
+        searchInput.value = "";
+        categoryFilter.value = "";
+        dateFilter.value = "";
 
-                row.style.display = "none";
-
-            }
-
-        });
+        applyFilters();
 
     });
 

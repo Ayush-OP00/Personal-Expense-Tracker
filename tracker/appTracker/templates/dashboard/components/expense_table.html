@@ -60,6 +60,8 @@
 
                             </strong>
 
+                    <tr data-date="{{ expense.date|date:'Y-m-d' }}">
+
                         </td>
 
                         <td>
@@ -80,7 +82,7 @@
 
                         <td>
 
-                            {{ expense.date|date:"M d, Y" }}
+                            {{ expense.date|date:'M d, Y' }}
 
                         </td>
 
