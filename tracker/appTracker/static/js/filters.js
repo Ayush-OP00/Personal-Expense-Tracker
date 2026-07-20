@@ -12,13 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function applyFilters() {
 
-        searchInput.focus();
-
-        const searchableText =
-            `${title} ${category}`.toLowerCase();
-
-        const matchesSearch =
-            searchableText.includes(searchValue);
+        const searchValue = searchInput.value.toLowerCase().trim();
         const categoryValue = categoryFilter.value.toLowerCase();
         const dateValue = dateFilter.value;
 
@@ -30,8 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const category = row.cells[1].innerText.toLowerCase();
             const date = row.dataset.date;
 
+            const searchableText =
+                `${title} ${category}`.toLowerCase();
+
             const matchesSearch =
-                title.includes(searchValue);
+                searchableText.includes(searchValue);
 
             const matchesCategory =
                 !categoryValue || category.includes(categoryValue);
@@ -77,6 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
         dateFilter.value = "";
 
         applyFilters();
+
+        searchInput.focus();
 
     });
 
