@@ -31,8 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // });)
 
 rows.forEach(row => {
-    console.log(row.dataset.date);
-    console.log(row.cells.length);
 
     const title = row.cells[0].innerText.toLowerCase();
     const category = row.cells[1].innerText.toLowerCase();
