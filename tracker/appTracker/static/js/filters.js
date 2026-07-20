@@ -18,65 +18,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let visible = 0;
 
-        rows.forEach(row => {
+        // rows.forEach(console.log({
+        //     title,
+        //     category,
+        //     date,
+        //     searchValue,
+        //     categoryValue,
+        //     dateValue,
+        //     matchesSearch,
+        //     matchesCategory,
+        //     matchesDate
+        // });)
 
-            const title = row.cells[0].innerText.toLowerCase();
-            const category = row.cells[1].innerText.toLowerCase();
-            const date = row.dataset.date;
+rows.forEach(row => {
+    console.log(row.dataset.date);
+    console.log(row.cells.length);
 
-            const searchableText =
-                `${title} ${category}`.toLowerCase();
+    const title = row.cells[0].innerText.toLowerCase();
+    const category = row.cells[1].innerText.toLowerCase();
+    const date = row.dataset.date;
 
-            const matchesSearch =
-                searchableText.includes(searchValue);
+    const searchableText =
+        `${title} ${category}`.toLowerCase();
 
-            const matchesCategory =
-                !categoryValue || category.includes(categoryValue);
+    const matchesSearch =
+        searchableText.includes(searchValue);
 
-            const matchesDate =
-                !dateValue || date === dateValue;
+    const matchesCategory =
+        !categoryValue || category.includes(categoryValue);
 
-            if (matchesSearch && matchesCategory && matchesDate) {
+    const matchesDate =
+        !dateValue || date === dateValue;
 
-                row.style.display = "";
-                visible++;
+    if (matchesSearch && matchesCategory && matchesDate) {
 
-            } else {
+        row.style.display = "";
+        visible++;
 
-                row.style.display = "none";
+    } else {
 
-            }
-
-        });
-
-        if (noResults) {
-
-            if (visible === 0) {
-                noResults.classList.remove("d-none");
-            } else {
-                noResults.classList.add("d-none");
-            }
-
-        }
+        row.style.display = "none";
 
     }
 
-    searchInput.addEventListener("input", applyFilters);
+});
 
-    categoryFilter.addEventListener("change", applyFilters);
+if (noResults) {
 
-    dateFilter.addEventListener("change", applyFilters);
+    if (visible === 0) {
+        noResults.classList.remove("d-none");
+    } else {
+        noResults.classList.add("d-none");
+    }
 
-    resetButton.addEventListener("click", function () {
+}
 
-        searchInput.value = "";
-        categoryFilter.value = "";
-        dateFilter.value = "";
+    }
 
-        applyFilters();
+searchInput.addEventListener("input", applyFilters);
 
-        searchInput.focus();
+categoryFilter.addEventListener("change", applyFilters);
 
-    });
+dateFilter.addEventListener("change", applyFilters);
+
+resetButton.addEventListener("click", function () {
+
+    searchInput.value = "";
+    categoryFilter.value = "";
+    dateFilter.value = "";
+
+    applyFilters();
+
+    searchInput.focus();
+
+});
 
 });

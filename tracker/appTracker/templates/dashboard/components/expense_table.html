@@ -50,40 +50,24 @@
 
                     {% for expense in expenses %}
 
-                    <tr>
-
-                        <td>
-
-                            <strong>
-
-                                {{ expense.title }}
-
-                            </strong>
-
                     <tr data-date="{{ expense.date|date:'Y-m-d' }}">
 
+                        <td>
+                            <strong>{{ expense.title }}</strong>
                         </td>
 
                         <td>
-
                             <span class="badge category-badge {{ expense.category }}">
-
                                 {{ expense.category|title }}
-
                             </span>
-
                         </td>
 
                         <td class="fw-bold text-danger">
-
                             ₹{{ expense.amount|floatformat:2 }}
-
                         </td>
 
                         <td>
-
-                            {{ expense.date|date:'M d, Y' }}
-
+                            {{ expense.date|date:"M d, Y" }}
                         </td>
 
                         <td>
