@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Cards</title>
+</head>
+
+<body>
+    <div class="row mb-4">
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="summary-card income-card">
+
+                <div class="summary-icon income">
+
+                    <i class="bi bi-wallet2"></i>
+
+                </div>
+
+                <h6>Total Income</h6>
+
+                <h3>
+
+                    ₹{{ total_income|floatformat:2 }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="summary-card expense-card">
+
+                <div class="summary-icon expense">
+
+                    <i class="bi bi-cash-stack"></i>
+
+                </div>
+
+                <h6>Total Expense</h6>
+
+                <h3>
+
+                    ₹{{ total_expense|floatformat:2 }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="summary-card balance-card">
+
+                <div class="summary-icon balance">
+
+                    <i class="bi bi-bank"></i>
+
+                </div>
+
+                <h6>Balance</h6>
+
+                <h3>
+
+                    ₹{{ balance |floatformat:2 }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="summary-card transaction-card">
+
+                <div class="summary-icon transaction">
+
+                    <i class="bi bi-receipt"></i>
+
+                </div>
+
+                <h6>Transactions</h6>
+
+                <h3>
+
+                    {{ transaction_count }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

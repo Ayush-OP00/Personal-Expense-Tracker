@@ -1,0 +1,63 @@
+.sidebar{
+
+    min-height:100vh;
+
+    background:#1e293b;
+
+    color:white;
+
+    padding:30px 20px;
+
+}
+
+.sidebar-header{
+
+    margin-bottom:40px;
+
+}
+
+.sidebar-header h3{
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+.sidebar .nav-link{
+
+    color:#cbd5e1;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+    font-size:17px;
+
+}
+
+.sidebar .nav-link:hover{
+
+    background:#334155;
+
+    color:white;
+
+}
+
+.sidebar .active{
+
+    background:#3b82f6;
+
+    color:white !important;
+
+}
+
+.logout-link{
+
+    color:#ef4444 !important;
+
+}
