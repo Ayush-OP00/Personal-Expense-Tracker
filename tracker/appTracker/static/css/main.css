@@ -115,3 +115,58 @@ body{
     padding:40px;
     background:var(--bg);
 }
+
+/* ==========================================
+   Toast Notifications
+========================================== */
+
+.toast{
+    min-width:320px;
+    border-radius:16px;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+    overflow:hidden;
+}
+
+.toast-body{
+
+    display:flex;
+    align-items:center;
+    font-weight:500;
+    font-size:.95rem;
+
+}
+
+.toast-icon{
+
+    font-size:1.25rem;
+
+}
+
+.toast-container{
+
+    margin-top:18px;
+    margin-right:18px;
+
+}
+
+/* ==========================================
+   Edit Expense Page
+========================================== */
+
+.edit-card{
+
+    animation:fadeIn .35s ease;
+
+}
+
+.btn{
+
+    transition:.25s ease;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}

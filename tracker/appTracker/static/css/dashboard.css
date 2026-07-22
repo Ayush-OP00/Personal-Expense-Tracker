@@ -461,12 +461,9 @@
 
 }
 
-.category-badge.shopping {
-
-    background: #F3E8FF;
-
-    color: #7E22CE;
-
+.category-badge.shopping{
+    background:#E0E7FF;
+    color:#4338CA;
 }
 
 .category-badge.bills {

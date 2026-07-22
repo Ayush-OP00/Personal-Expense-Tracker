@@ -149,7 +149,7 @@ def edit_expense(request, id):
         expense.date = request.POST.get('date')
 
         expense.save()
-        messages.success(request, "Expense updated successfully.")
+        messages.info(request, "Expense updated successfully.")
 
         return redirect('manage')
     return render(request,'expenses/edit_expense.html', {'expense' : expense})
@@ -166,7 +166,7 @@ def delete_expense(request, id):
             user=request.user
         )
         expense.delete()
-        messages.success(request, "Expense deleted successfully.")
+        messages.error(request, "Expense deleted successfully.")
 
     return redirect("manage")
     
