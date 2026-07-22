@@ -38,20 +38,44 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 def registration(request):
+
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
 
-        # Check if user already exists
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+
+        if password != confirm_password:
+
+            return render(
+                request,
+                "accounts/register.html",
+                {"error": "Passwords do not match."}
+            )
+
         if User.objects.filter(username=username).exists():
-            return render(request, 'accounts/register.html', {'error': 'Username already exists'})
 
-        user = User.objects.create_user(username=username, email = email, password=password )
-        user.save()
-        
-        return redirect('login')
-    return render(request, 'accounts/register.html')  
+            return render(
+                request,
+                "accounts/register.html",
+                {"error": "Username already exists."}
+            )
+
+        User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        messages.success(
+            request,
+            "Account created successfully! Please login."
+        )
+
+        return redirect("login")
+
+    return render(request, "accounts/register.html")  
 
 @login_required
 def manage_expenses(request):

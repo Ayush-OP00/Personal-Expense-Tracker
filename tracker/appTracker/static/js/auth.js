@@ -1,26 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const password = document.getElementById("password");
-    const toggle = document.getElementById("togglePassword");
+    function setupToggle(inputId, buttonId) {
 
-    if (!password || !toggle) return;
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
 
-    toggle.addEventListener("click", () => {
+        if (!input || !button) return;
 
-        const icon = toggle.querySelector("i");
+        button.addEventListener("click", () => {
 
-        if (password.type === "password") {
+            const icon = button.querySelector("i");
 
-            password.type = "text";
-            icon.classList.replace("bi-eye", "bi-eye-slash");
+            if (input.type === "password") {
 
-        } else {
+                input.type = "text";
+                icon.classList.replace("bi-eye", "bi-eye-slash");
 
-            password.type = "password";
-            icon.classList.replace("bi-eye-slash", "bi-eye");
+            } else {
 
-        }
+                input.type = "password";
+                icon.classList.replace("bi-eye-slash", "bi-eye");
 
-    });
+            }
+
+        });
+
+    }
+
+    setupToggle("password", "togglePassword");
+    setupToggle("confirmPassword", "toggleConfirmPassword");
 
 });
