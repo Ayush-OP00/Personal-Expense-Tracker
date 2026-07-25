@@ -1,0 +1,47 @@
+{% extends "error_base.html" %}
+
+{% block title %}
+404 | Expense Tracker
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6 text-center">
+
+            <i class="bi bi-search display-1 text-primary"></i>
+
+            <h1 class="display-2 fw-bold mt-3">
+                404
+            </h1>
+
+            <h3 class="mb-3">
+                Page Not Found
+            </h3>
+
+            <p class="text-muted mb-4">
+
+                The page you are looking for doesn't exist or may have been moved.
+
+            </p>
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="btn btn-primary btn-lg">
+
+                <i class="bi bi-house-door me-2"></i>
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

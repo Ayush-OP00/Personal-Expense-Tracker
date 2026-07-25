@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from appTracker.views import registration, login_view, manage_expenses, edit_expense, delete_expense, data_visualization, logout_view
+from . import views
 
 urlpatterns = [
 
